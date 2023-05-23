@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import static br.com.diego.votacaoservice.utils.SessaoConstants.*;
@@ -45,19 +47,32 @@ public class SessaoService {
         return votoService.registrarVoto(voto);
     }
 
+    public void fecharSessao(Sessao sessao) {
+        sessao.fechar();
+        sessaoRepository.save(sessao);
+    }
+
     @Transactional(readOnly = true)
     public Sessao buscar(Long id) {
         Optional<Sessao> sessao = sessaoRepository.findById(id);
         return sessao.orElseThrow(() -> new SessaoNaoEncontradaException(SESSAO_NAO_ENCONTRADA_EXCEPTION));
     }
 
+    @Transactional(readOnly = true)
     public ResultadoVotacao obterResultadoVotacao(Long idSessao) {
         Sessao sessao = buscar(idSessao);
         if (sessao.isAberta()) {
             throw new SessaoAbertaResultadoException(SESSAO_ABERTA_RESULTADO_EXCEPTION);
         }
         ResultadoVotacao resultadoVotacao = votoService.obterResultadoVotacao(idSessao);
+        resultadoVotacao.setIdSessao(idSessao);
+        resultadoVotacao.setPauta(sessao.getPauta());
         resultadoVotacao.definirResultado();
         return resultadoVotacao;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Sessao> buscarSessoesEncerradasNaoPublicadas(LocalDateTime dataHora) {
+        return sessaoRepository.findByDataFechamentoBeforeAndIsResultadoPublicadoIsFalse(dataHora);
     }
 }

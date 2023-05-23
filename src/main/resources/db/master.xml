@@ -7,4 +7,5 @@
 
     <!-- changelog -->
     <include file="changelog/000001_init.sql" relativeToChangelogFile="true"/>
+    <include file="changelog/000002_adiciona_novo_campo_tabela_sessao.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

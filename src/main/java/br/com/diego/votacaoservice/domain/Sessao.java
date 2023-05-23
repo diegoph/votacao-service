@@ -7,6 +7,7 @@ import org.hibernate.annotations.Type;
 import java.time.LocalDateTime;
 
 import static br.com.diego.votacaoservice.domain.SessaoStatus.ABERTA;
+import static br.com.diego.votacaoservice.domain.SessaoStatus.FECHADA;
 import static br.com.diego.votacaoservice.utils.SessaoConstants.SESSAO_DURACAO_MINIMA_EM_MINUTOS;
 
 @Entity
@@ -15,7 +16,7 @@ public class Sessao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_pauta")
     private Pauta pauta;
     @Column(name = "data_abertura")
@@ -27,6 +28,9 @@ public class Sessao {
     @Column(columnDefinition = "sessao_status_enum")
     @Type(PostgreSQLEnumType.class)
     private SessaoStatus status;
+
+    @Column
+    private boolean isResultadoPublicado;
 
     public Long getId() {
         return id;
@@ -63,6 +67,11 @@ public class Sessao {
         status = ABERTA;
         dataAbertura = LocalDateTime.now();
         dataFechamento = LocalDateTime.now().plusMinutes(duracaoEmMinutos);
+    }
+
+    public void fechar() {
+        status = FECHADA;
+        isResultadoPublicado = true;
     }
 
     public boolean isAberta() {

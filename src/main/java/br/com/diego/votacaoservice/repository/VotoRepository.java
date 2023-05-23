@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 public interface VotoRepository extends JpaRepository<Voto, Long> {
     boolean existsByIdSessaoAndIdAssociado(Long idSessao, Long idAssociado);
     @Query("""
-       SELECT new br.com.diego.votacaoservice.domain.ResultadoVotacao(count(id) as totalVotos,
+       SELECT new br.com.diego.votacaoservice.domain.ResultadoVotacao(
+            count(id) as totalVotos,
             count(id) FILTER (WHERE opcaoVoto = 'SIM') as totalSim, 
             count(id) FILTER (WHERE opcaoVoto = 'NAO') as totalNao)
        FROM Voto 

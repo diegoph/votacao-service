@@ -1,0 +1,1 @@
+ALTER TABLE sessao ADD is_resultado_publicado boolean NOT NULL;

@@ -4,6 +4,10 @@ import static br.com.diego.votacaoservice.domain.ResultadoVotacaoStatus.*;
 
 public class ResultadoVotacao {
 
+    private Long idSessao;
+
+    private Pauta pauta;
+
     private long totalVotos;
 
     private long totalSim;
@@ -12,7 +16,12 @@ public class ResultadoVotacao {
 
     ResultadoVotacaoStatus resultado;
 
-    public ResultadoVotacao(long totalVotos, long totalSim, long totalNao) {
+    public ResultadoVotacao() {};
+
+    public ResultadoVotacao(long totalVotos,
+                            long totalSim,
+                            long totalNao) {
+
         this.totalVotos = totalVotos;
         this.totalSim = totalSim;
         this.totalNao = totalNao;
@@ -44,6 +53,22 @@ public class ResultadoVotacao {
 
     public ResultadoVotacaoStatus getResultado() {
         return resultado;
+    }
+
+    public Long getIdSessao() {
+        return idSessao;
+    }
+
+    public void setIdSessao(Long idSessao) {
+        this.idSessao = idSessao;
+    }
+
+    public Pauta getPauta() {
+        return pauta;
+    }
+
+    public void setPauta(Pauta pauta) {
+        this.pauta = pauta;
     }
 
     public void definirResultado() {
