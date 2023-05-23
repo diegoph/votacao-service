@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/sessoes")
+@RequestMapping("/sessoes/v1")
 public class SessaoController {
 
     @Autowired
