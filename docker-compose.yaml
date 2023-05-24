@@ -1,12 +1,25 @@
 version: '3.1'
 
 services:
+  votacao-service:
+    build: .
+    container_name: "votacao-service-app"
+    environment:
+      SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - kafka
+
   db:
     image: postgres
     restart: always
     ports:
       - "5432:5432"
+    container_name: "votacao-service-db"
     environment:
+      POSTGRES_DB: "votacao-service"
       POSTGRES_USER: root
       POSTGRES_PASSWORD: 123456
 
@@ -30,6 +43,7 @@ services:
       - zookeeper
     ports:
       - "9092:9092"
+    container_name: "votacao-service-kafka"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
