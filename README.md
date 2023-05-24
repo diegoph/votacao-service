@@ -23,7 +23,7 @@ docker-compose up --build
 
 ### Comunicando com API
 
-O serviço está acessivel na porta 8080, disponibilizei uma [collection](arquivos/API Votação.postman_collection.json) do postman para facilitar:
+O serviço está acessivel na porta 8080, disponibilizei uma [collection](arquivos/API%20Votação.postman_collection.json) do postman para facilitar:
 
 ![alt text](arquivos/collection.png)
 
