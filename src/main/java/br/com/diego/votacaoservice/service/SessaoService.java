@@ -38,6 +38,11 @@ public class SessaoService {
        return sessao;
     }
 
+    @Transactional(readOnly = true)
+    public List<Sessao> listarSessoes() {
+        return sessaoRepository.findAll();
+    }
+
     public Voto votar(Long idSessao, Voto voto) {
         Sessao sessao = buscar(idSessao);
         if (!sessao.isAberta()) {
@@ -75,4 +80,5 @@ public class SessaoService {
     public List<Sessao> buscarSessoesEncerradasNaoPublicadas(LocalDateTime dataHora) {
         return sessaoRepository.findByDataFechamentoBeforeAndIsResultadoPublicadoIsFalse(dataHora);
     }
+
 }

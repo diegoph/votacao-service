@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pautas/v1")
+@RequestMapping("/v1/pautas")
 public class PautaController {
 
     @Autowired

@@ -1,5 +1,3 @@
-SET timezone TO 'UTC';
-
 CREATE TYPE voto_enum AS ENUM('SIM', 'NAO');
 CREATE TYPE sessao_status_enum AS ENUM('ABERTA', 'FECHADA');
 
@@ -13,8 +11,8 @@ CREATE TABLE sessao (
   id BIGSERIAL NOT NULL,
   id_pauta BIGINT NOT NULL,
   status sessao_status_enum NOT NULL,
-  data_abertura TIMESTAMPTZ NOT NULL,
-  data_fechamento TIMESTAMPTZ NOT NULL,
+  data_abertura TIMESTAMP WITH TIME ZONE NOT NULL,
+  data_fechamento TIMESTAMP WITH TIME ZONE NOT NULL,
   CONSTRAINT pk_sessao PRIMARY KEY (id),
   CONSTRAINT fk_pauta FOREIGN KEY (id_pauta) REFERENCES pauta (id));
 

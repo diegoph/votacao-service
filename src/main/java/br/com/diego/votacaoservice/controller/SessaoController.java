@@ -17,8 +17,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/sessoes/v1")
+@RequestMapping("/v1/sessoes")
 public class SessaoController {
 
     @Autowired
@@ -36,7 +38,13 @@ public class SessaoController {
     @PostMapping
     public ResponseEntity<SessaoResponseDTO> abreSessao(@Valid @RequestBody SessaoRequestDTO sessaoRequestDTO) {
         Sessao sessao = sessaoService.abrirSessao(sessaoRequestDTO.idPauta(), sessaoRequestDTO.duracaoEmMinutos());
-        return ResponseEntity.ok(sessaoMapper.fromEntityToResponseDto(sessao));
+        return ResponseEntity.status(HttpStatus.CREATED).body(sessaoMapper.fromEntityToResponseDto(sessao));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<SessaoResponseDTO>> listaSessao() {
+        List<Sessao> sessoes = sessaoService.listarSessoes();
+        return ResponseEntity.ok(sessaoMapper.fromEntityListToResponseDto(sessoes));
     }
 
     @PostMapping("/{idSessao}/votos")

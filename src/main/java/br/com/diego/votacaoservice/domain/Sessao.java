@@ -56,10 +56,6 @@ public class Sessao {
         return status;
     }
 
-    public void setStatus(SessaoStatus status) {
-        this.status = status;
-    }
-
     public void iniciar(Integer duracaoEmMinutos) {
         if (duracaoEmMinutos == null || duracaoEmMinutos < SESSAO_DURACAO_MINIMA_EM_MINUTOS) {
             duracaoEmMinutos = SESSAO_DURACAO_MINIMA_EM_MINUTOS;
